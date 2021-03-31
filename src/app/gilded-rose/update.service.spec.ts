@@ -64,11 +64,11 @@ describe('UpdateService', () => {
     it('when Q:50, S:5, expected Q:50, S:4', () => {
       const normalItem: Item = {
         itemType: ItemType.AgedBrie,
-        quality: 10,
+        quality: 50,
         sellIn: 5,
       }
       const result = service.update(normalItem)
-      expect(11).toEqual(result.quality)
+      expect(50).toEqual(result.quality)
       expect(4).toEqual(result.sellIn)
     })
   })
