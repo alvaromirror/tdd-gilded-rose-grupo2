@@ -13,4 +13,5 @@ export enum ItemType {
   AgedBrie,
   SulfurasLegendary,
   Conjured,
+  Old,
 }

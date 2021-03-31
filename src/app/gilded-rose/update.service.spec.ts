@@ -108,4 +108,51 @@ describe('UpdateService', () => {
       expect(1).toEqual(result.sellIn)
     })
   })
+
+  describe('Old item', () => {
+    it('when Q:10, S:2, exected Q:0, S:0', () => {
+      const oldItem: Item = {
+        itemType: ItemType.Old,
+        quality: 10,
+        sellIn: 2,
+      }
+      const result = service.update(oldItem)
+      expect(0).toEqual(result.quality)
+      expect(0).toEqual(result.sellIn)
+    })
+    
+    it('when Q:10, S:1, exected Q:10, S:1', () => {
+      const oldItem: Item = {
+        itemType: ItemType.Old,
+        quality: 10,
+        sellIn: 1,
+      }
+      const result = service.update(oldItem)
+      expect(10).toEqual(result.quality)
+      expect(1).toEqual(result.sellIn)
+    })
+
+    it('when Q:100, S:3, exected Q:0, S:0', () => {
+      const oldItem: Item = {
+        itemType: ItemType.Old,
+        quality: 100,
+        sellIn: 3,
+      }
+      const result = service.update(oldItem)
+      expect(0).toEqual(result.quality)
+      expect(0).toEqual(result.sellIn)
+    })
+    
+    it('when Q:100, S:1, exected Q:10, S:1', () => {
+      const oldItem: Item = {
+        itemType: ItemType.Old,
+        quality: 100,
+        sellIn: 1,
+      }
+      const result = service.update(oldItem)
+      expect(100).toEqual(result.quality)
+      expect(1).toEqual(result.sellIn)
+    })
+    
+  })
 })

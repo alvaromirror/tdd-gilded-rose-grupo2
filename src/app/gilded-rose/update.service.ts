@@ -27,6 +27,10 @@ export class UpdateService {
         strategy = new ConjuredUpdateStrategy()
         break
       }
+      case ItemType.Old: {
+        strategy = new OldUpdateStrategy()
+        break
+      }
 
       //default: {
       //  break
@@ -77,6 +81,19 @@ class ConjuredUpdateStrategy implements UpdateStrategy {
       itemType: ItemType.Conjured,
       quality: item.quality - 2 < 0 ? 0 : item.quality - 2,
       sellIn: item.sellIn - 1,
+    }
+  }
+}
+class OldUpdateStrategy implements UpdateStrategy {
+  update(item: Item): Item {
+    //const targetQuality = item.quality - 1
+    //const quality = targetQuality < 0 ? 0 : targetQuality
+      
+    console.log(item)
+    return {
+      itemType: ItemType.Old,
+      quality: item.sellIn >= 2 ? 0 : item.quality,
+      sellIn: item.sellIn >= 2 ? 0 : item.sellIn,
     }
   }
 }
