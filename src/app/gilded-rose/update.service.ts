@@ -23,6 +23,10 @@ export class UpdateService {
         strategy = new SulfurasLegendaryUpdateStrategy()
         break
       }
+      case ItemType.Conjured: {
+        strategy = new ConjuredUpdateStrategy()
+        break
+      }
 
       //default: {
       //  break
@@ -51,7 +55,7 @@ class AgedBrieUpdateStrategy implements UpdateStrategy {
   update(item: Item): Item {
     return {
       itemType: ItemType.Normal,
-      quality: item.quality + 1,
+      quality: item.quality < 50 ? item.quality + 1 : item.quality,
       sellIn: item.sellIn - 1,
     }
   }
@@ -63,6 +67,16 @@ class SulfurasLegendaryUpdateStrategy implements UpdateStrategy {
       itemType: ItemType.SulfurasLegendary,
       quality: item.quality,
       sellIn: item.sellIn,
+    }
+  }
+}
+
+class ConjuredUpdateStrategy implements UpdateStrategy {
+  update(item: Item): Item {
+    return {
+      itemType: ItemType.Conjured,
+      quality: item.quality - 2 < 0 ? 0 : item.quality - 2,
+      sellIn: item.sellIn - 1,
     }
   }
 }

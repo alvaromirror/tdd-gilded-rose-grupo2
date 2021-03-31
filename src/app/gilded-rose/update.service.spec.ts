@@ -61,6 +61,16 @@ describe('UpdateService', () => {
       expect(11).toEqual(result.quality)
       expect(4).toEqual(result.sellIn)
     })
+    it('when Q:50, S:5, expected Q:50, S:4', () => {
+      const normalItem: Item = {
+        itemType: ItemType.AgedBrie,
+        quality: 10,
+        sellIn: 5,
+      }
+      const result = service.update(normalItem)
+      expect(11).toEqual(result.quality)
+      expect(4).toEqual(result.sellIn)
+    })
   })
 
   describe('sulfurasLegendary', () => {
@@ -72,7 +82,30 @@ describe('UpdateService', () => {
       }
       const result = service.update(normalItem)
       expect(10).toEqual(result.quality)
-      expect(4).toEqual(result.sellIn)
+      expect(5).toEqual(result.sellIn)
+    })
+  })
+
+  describe('conjured', () => {
+    it('when Q:10, S:3, exected Q:8, S:2', () => {
+      const normalItem: Item = {
+        itemType: ItemType.Conjured,
+        quality: 10,
+        sellIn: 3,
+      }
+      const result = service.update(normalItem)
+      expect(8).toEqual(result.quality)
+      expect(2).toEqual(result.sellIn)
+    })
+    it('when Q:1, S:2, exected Q:0, S:1', () => {
+      const normalItem: Item = {
+        itemType: ItemType.Conjured,
+        quality: 1,
+        sellIn: 2,
+      }
+      const result = service.update(normalItem)
+      expect(0).toEqual(result.quality)
+      expect(1).toEqual(result.sellIn)
     })
   })
 })
