@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing'
-import { Item } from './gilded-rose.types'
+import { Item, ItemType } from './gilded-rose.types'
 
 import { UpdateService } from './update.service'
 
@@ -16,9 +16,9 @@ describe('UpdateService', () => {
   })
 
   describe('Normal items', () => {
-    it('when Q:10, expected Q:9', () => {
+    it('when Q:10, S:5, expected Q:9, S:4', () => {
       const normalItem: Item = {
-        type: 'normal',
+        itemType: ItemType.Normal,
         quality: 10,
         sellIn: 5,
       }
@@ -27,9 +27,9 @@ describe('UpdateService', () => {
       expect(4).toEqual(result.sellIn)
     })
 
-    it('when Q: 5, Q: 4', () => {
+    it('when Q:5, S:2, expected Q:4, S:1', () => {
       const normalItem: Item = {
-        type: 'normal',
+        itemType: ItemType.Normal,
         quality: 5,
         sellIn: 2,
       }
@@ -38,9 +38,9 @@ describe('UpdateService', () => {
       expect(1).toEqual(result.sellIn)
     })
 
-    it('when Q: 0, Q: 0', () => {
+    it('when Q:0, S:0, expected Q:0, S:0', () => {
       const normalItem: Item = {
-        type: 'normal',
+        itemType: ItemType.Normal,
         quality: 0,
         sellIn: 0,
       }
@@ -51,14 +51,27 @@ describe('UpdateService', () => {
   })
 
   describe('Aged Brie', () => {
-    it('when Q: 10, Q: 11', () => {
+    it('when Q:10, S:5, expected Q:11, S:4', () => {
       const normalItem: Item = {
-        type: 'agedBrie',
+        itemType: ItemType.AgedBrie,
         quality: 10,
         sellIn: 5,
       }
       const result = service.update(normalItem)
       expect(11).toEqual(result.quality)
+      expect(4).toEqual(result.sellIn)
+    })
+  })
+
+  describe('sulfurasLegendary', () => {
+    it('when Q:10, S:5, exected Q:10, S:4', () => {
+      const normalItem: Item = {
+        itemType: ItemType.SulfurasLegendary,
+        quality: 10,
+        sellIn: 5,
+      }
+      const result = service.update(normalItem)
+      expect(10).toEqual(result.quality)
       expect(4).toEqual(result.sellIn)
     })
   })

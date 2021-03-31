@@ -1,9 +1,15 @@
 export type Item = {
-  readonly type: 'normal' | 'agedBrie'
+  readonly itemType: ItemType
   readonly quality: number
   readonly sellIn: number
 }
 
 export interface UpdateStrategy {
   update(item: Item): Item
+}
+
+export enum ItemType {
+  Normal,
+  AgedBrie,
+  SulfurasLegendary,
 }

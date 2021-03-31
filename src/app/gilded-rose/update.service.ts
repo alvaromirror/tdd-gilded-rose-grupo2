@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Item, UpdateStrategy } from './gilded-rose.types'
+import { Item, ItemType, UpdateStrategy } from './gilded-rose.types'
 
 @Injectable({
   providedIn: 'root',
@@ -8,10 +8,27 @@ export class UpdateService {
   constructor() {}
 
   update(item: Item): Item {
-    const strategy =
-      item.type === 'normal'
-        ? new NormalUpdateStrategy()
-        : new AgedBrieUpdateStrategy()
+    var strategy
+
+    switch (item.itemType) {
+      case ItemType.Normal: {
+        strategy = new NormalUpdateStrategy()
+        break
+      }
+      case ItemType.AgedBrie: {
+        strategy = new AgedBrieUpdateStrategy()
+        break
+      }
+      case ItemType.SulfurasLegendary: {
+        strategy = new SulfurasLegendaryUpdateStrategy()
+        break
+      }
+
+      //default: {
+      //  break
+      //}
+    }
+
     return strategy.update(item)
   }
 }
@@ -23,7 +40,7 @@ class NormalUpdateStrategy implements UpdateStrategy {
     const targetSellIn = item.sellIn - 1
     const sellIn = targetSellIn < 0 ? 0 : targetSellIn
     return {
-      type: 'normal',
+      itemType: ItemType.Normal,
       quality,
       sellIn,
     }
@@ -33,9 +50,19 @@ class NormalUpdateStrategy implements UpdateStrategy {
 class AgedBrieUpdateStrategy implements UpdateStrategy {
   update(item: Item): Item {
     return {
-      type: 'normal',
+      itemType: ItemType.Normal,
       quality: item.quality + 1,
       sellIn: item.sellIn - 1,
+    }
+  }
+}
+
+class SulfurasLegendaryUpdateStrategy implements UpdateStrategy {
+  update(item: Item): Item {
+    return {
+      itemType: ItemType.SulfurasLegendary,
+      quality: item.quality,
+      sellIn: item.sellIn,
     }
   }
 }
