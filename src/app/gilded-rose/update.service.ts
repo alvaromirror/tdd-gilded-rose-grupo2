@@ -31,7 +31,11 @@ export class UpdateService {
         strategy = new OldUpdateStrategy()
         break
       }
-
+      case ItemType.BackstagePasses: {
+        strategy = new BackstagePasses()
+        break
+      }
+      
       //default: {
       //  break
       //}
@@ -86,14 +90,35 @@ class ConjuredUpdateStrategy implements UpdateStrategy {
 }
 class OldUpdateStrategy implements UpdateStrategy {
   update(item: Item): Item {
-    //const targetQuality = item.quality - 1
-    //const quality = targetQuality < 0 ? 0 : targetQuality
-      
-    console.log(item)
     return {
       itemType: ItemType.Old,
       quality: item.sellIn >= 2 ? 0 : item.quality,
       sellIn: item.sellIn >= 2 ? 0 : item.sellIn,
+    }
+  }
+}
+
+class BackstagePasses implements UpdateStrategy {
+  update(item: Item): Item {
+    const targetSellIn = item.sellIn - 1
+    var sellIn = 0
+    var quality = 0
+    if (targetSellIn < 0) {
+      sellIn = 0
+    } else if (targetSellIn > 10) {
+      sellIn = targetSellIn
+      quality = item.quality + 1
+    } else if (targetSellIn <= 10 && targetSellIn > 5) {
+      sellIn = targetSellIn
+      quality = item.quality * 2
+    } else if (targetSellIn <= 5) {
+      sellIn = targetSellIn
+      quality = item.quality * 3
+    }
+    return {
+      itemType: ItemType.BackstagePasses,
+      quality: quality,
+      sellIn: sellIn,
     }
   }
 }

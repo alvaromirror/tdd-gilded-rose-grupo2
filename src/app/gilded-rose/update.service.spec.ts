@@ -48,6 +48,16 @@ describe('UpdateService', () => {
       expect(0).toEqual(result.quality)
       expect(0).toEqual(result.sellIn)
     })
+    it('when Q:20, S:21, expected Q:19, S:20', () => {
+      const normalItem: Item = {
+        itemType: ItemType.Normal,
+        quality: 20,
+        sellIn: 21,
+      }
+      const result = service.update(normalItem)
+      expect(19).toEqual(result.quality)
+      expect(20).toEqual(result.sellIn)
+    })
   })
 
   describe('Aged Brie', () => {
@@ -154,5 +164,84 @@ describe('UpdateService', () => {
       expect(1).toEqual(result.sellIn)
     })
     
+  })
+
+  describe('BackstagePasses item', () => {
+    it('when Q:10, S:20, exected Q:11, S:19', () => {
+      const oldItem: Item = {
+        itemType: ItemType.BackstagePasses,
+        quality: 10,
+        sellIn: 20,
+      }
+      const result = service.update(oldItem)
+      expect(11).toEqual(result.quality)
+      expect(19).toEqual(result.sellIn)
+    })
+    
+    it('when Q:13, S:17, exected Q:14, S:16', () => {
+      const oldItem: Item = {
+        itemType: ItemType.BackstagePasses,
+        quality: 13,
+        sellIn: 17,
+      }
+      const result = service.update(oldItem)
+      expect(14).toEqual(result.quality)
+      expect(16).toEqual(result.sellIn)
+    })
+
+    it('when Q:19, S:11, exected Q:38, S:10', () => {
+      const oldItem: Item = {
+        itemType: ItemType.BackstagePasses,
+        quality: 19,
+        sellIn: 11,
+      }
+      const result = service.update(oldItem)
+      expect(38).toEqual(result.quality)
+      expect(10).toEqual(result.sellIn)
+    })
+
+    it('when Q:304, S:7, exected Q:608, S:6', () => {
+      const oldItem: Item = {
+        itemType: ItemType.BackstagePasses,
+        quality: 304,
+        sellIn: 7,
+      }
+      const result = service.update(oldItem)
+      expect(608).toEqual(result.quality)
+      expect(6).toEqual(result.sellIn)
+    })
+
+    it('when Q:608, S:6, exected Q:1824, S:5', () => {
+      const oldItem: Item = {
+        itemType: ItemType.BackstagePasses,
+        quality: 608,
+        sellIn: 6,
+      }
+      const result = service.update(oldItem)
+      expect(1824).toEqual(result.quality)
+      expect(5).toEqual(result.sellIn)
+    })
+
+    it('when Q:16416, S:3, exected Q:49248, S:2', () => {
+      const oldItem: Item = {
+        itemType: ItemType.BackstagePasses,
+        quality: 16416,
+        sellIn: 3,
+      }
+      const result = service.update(oldItem)
+      expect(49248).toEqual(result.quality)
+      expect(2).toEqual(result.sellIn)
+    })
+
+    it('when Q:443232, S:0, exected Q:0, S:0', () => {
+      const oldItem: Item = {
+        itemType: ItemType.BackstagePasses,
+        quality: 443232,
+        sellIn: 0,
+      }
+      const result = service.update(oldItem)
+      expect(0).toEqual(result.quality)
+      expect(0).toEqual(result.sellIn)
+    })    
   })
 })
