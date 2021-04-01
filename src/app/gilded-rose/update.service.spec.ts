@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing'
-import { Item, ItemType } from './gilded-rose.types'
-
+import { ItemType } from './itemType'
+import { Item } from './item'
 import { UpdateService } from './update.service'
 
 describe('UpdateService', () => {
@@ -130,7 +130,7 @@ describe('UpdateService', () => {
       expect(0).toEqual(result.quality)
       expect(0).toEqual(result.sellIn)
     })
-    
+
     it('when Q:10, S:1, exected Q:10, S:1', () => {
       const oldItem: Item = {
         itemType: ItemType.Old,
@@ -152,7 +152,7 @@ describe('UpdateService', () => {
       expect(0).toEqual(result.quality)
       expect(0).toEqual(result.sellIn)
     })
-    
+
     it('when Q:100, S:1, exected Q:10, S:1', () => {
       const oldItem: Item = {
         itemType: ItemType.Old,
@@ -163,7 +163,6 @@ describe('UpdateService', () => {
       expect(100).toEqual(result.quality)
       expect(1).toEqual(result.sellIn)
     })
-    
   })
 
   describe('BackstagePasses item', () => {
@@ -177,7 +176,7 @@ describe('UpdateService', () => {
       expect(11).toEqual(result.quality)
       expect(19).toEqual(result.sellIn)
     })
-    
+
     it('when Q:13, S:17, exected Q:14, S:16', () => {
       const oldItem: Item = {
         itemType: ItemType.BackstagePasses,
@@ -242,6 +241,6 @@ describe('UpdateService', () => {
       const result = service.update(oldItem)
       expect(0).toEqual(result.quality)
       expect(0).toEqual(result.sellIn)
-    })    
+    })
   })
 })
